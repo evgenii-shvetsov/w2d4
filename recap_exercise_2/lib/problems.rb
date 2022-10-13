@@ -1,13 +1,34 @@
 # Write a method, least_common_multiple, that takes in two numbers and returns the smallest number that is a mutiple
 # of both of the given numbers
+require "byebug"
 def least_common_multiple(num_1, num_2)
+    num_1_mult = []
+    num_2_mult = []
 
+    (1..10).each do |i|
+        num_1_mult << num_1 * i
+    end
+    (1..10).each do |i|
+        num_2_mult << num_2 * i
+    end
+
+    num_2_mult.each do |num|
+        if num_1_mult.include?(num)
+            return num
+        end
+    end
 end
 
 
 # Write a method, most_frequent_bigram, that takes in a string and returns the two adjacent letters that appear the
 # most in the string.
 def most_frequent_bigram(str)
+    hash = Hash.new(0)
+    (0...str.length-1).each do |i|
+        pairs = str[i] + str[i+1]
+        hash[pairs] += 1
+    end
+    hash.sort_by {|key, value| value}[-1][0]
 
 end
 
@@ -15,7 +36,11 @@ end
 class Hash
     # Write a method, Hash#inverse, that returns a new hash where the key-value pairs are swapped
     def inverse
-
+        new_hash = {}
+        self.each do |key, value|
+            new_hash[value] = key
+        end
+        new_hash
     end
 end
 
@@ -23,7 +48,14 @@ end
 class Array
     # Write a method, Array#pair_sum_count, that takes in a target number returns the number of pairs of elements that sum to the given target
     def pair_sum_count(num)
-
+        count = 0
+        (0...self.length).each do |i|
+            (i+1...self.length).each do |j|
+            # debugger
+                count += 1 if self[i] + self[j] == num
+            end
+        end
+        count
     end
 
     # Write a method, Array#bubble_sort, that takes in an optional proc argument.
@@ -40,6 +72,21 @@ class Array
     #
     # This should remind you of the spaceship operator! Convenient :)
     def bubble_sort(&prc)
+        prc ||= Proc.new {}
+        sorted = false
 
+        while !sorted
+            sorted = true
+
+            (0...self.length - 1).each do |i|
+                if self[i] > self[i+1]
+                    self[i],self[i+1] = self[i+1], self[i]
+                    sorted = false
+                end
+            end
+        end
+        self
     end
+
+
 end
