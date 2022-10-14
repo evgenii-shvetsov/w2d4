@@ -53,7 +53,7 @@ end
 
 
 
-#longest_streak   #NEED TO FINISH
+#longest_streak   #DONE
 def longest_streak(str)
     current = ""
     longest = ""
@@ -70,6 +70,8 @@ def longest_streak(str)
         end
     end
     longest
+
+end
 
           #Solution with hash, last example doesn't pass the test case
 
@@ -98,7 +100,7 @@ def longest_streak(str)
     # #iterate over hash and 
     
 
-end
+
 
 # # Examples
 # p longest_streak('a')           # => 'a'
@@ -143,7 +145,7 @@ end
 # p bi_prime?(64)   # => false
 
 
-#vigenere_cipher
+#vigenere_cipher DONE
 
 def vigenere_cipher(str, shift)
     alphabet = ("a".."z").to_a
@@ -158,44 +160,54 @@ end
 
 
 # Examples
-p vigenere_cipher("toerrishuman", [1])        # => "upfssjtivnbo"
-p vigenere_cipher("toerrishuman", [1, 2])     # => "uqftsktjvobp"
-p vigenere_cipher("toerrishuman", [1, 2, 3])  # => "uqhstltjxncq"
-p vigenere_cipher("zebra", [3, 0])            # => "ceerd"
-p vigenere_cipher("yawn", [5, 1])             # => "dbbo"
+# p vigenere_cipher("toerrishuman", [1])        # => "upfssjtivnbo"
+# p vigenere_cipher("toerrishuman", [1, 2])     # => "uqftsktjvobp"
+# p vigenere_cipher("toerrishuman", [1, 2, 3])  # => "uqhstltjxncq"
+# p vigenere_cipher("zebra", [3, 0])            # => "ceerd"
+# p vigenere_cipher("yawn", [5, 1])             # => "dbbo"
 
 
 
 
-#vowel_rotate
+#vowel_rotate  #DONE   need to check
 
 def vowel_rotate(str)
-
-end
-
-def vow_indices(str) # we got the vowels' positions in the string
+    new_str = str[0..-1]
     vowels = "aeiou"
-    indices = []
-    str.each_char.with_index do |char, i|
-        indices << i if vowels.include?(char)
+    vow_indices = (0...str.length).select {|i| vowels.include?(str[i])} 
+    new_vow_indices = vow_indices.rotate(-1)
+
+    vow_indices.each_with_index do |vowel_idx, i|
+        new_vowel = str[new_vow_indices[i]]
+
+        new_str[vowel_idx]= new_vowel
     end
-    indices
+    new_str
 end
+
+# def vow_indices(str) # we got the vowels' positions in the string
+#     vowels = "aeiou"
+#     indices = []
+#     str.each_char.with_index do |char, i|
+#         indices << i if vowels.include?(char)
+#     end
+#     indices
+# end
 
 
 # Examples
-# vowel_rotate('computer')      # => "cempotur"
-# vowel_rotate('oranges')       # => "erongas"
-# vowel_rotate('headphones')    # => "heedphanos"
-# vowel_rotate('bootcamp')      # => "baotcomp"
-# vowel_rotate('awesome')       # => "ewasemo"
+# p vowel_rotate('computer')      # => "cempotur"
+# p vowel_rotate('oranges')       # => "erongas"
+# p vowel_rotate('headphones')    # => "heedphanos"
+# p vowel_rotate('bootcamp')      # => "baotcomp"
+# p vowel_rotate('awesome')       # => "ewasemo"
 
 
 #PROC PROBLEMS *DONE
 
 class String
 
-    def select(&blk)
+    def select(&blk)  #DONE
         blk ||= Proc.new {false}
         new_str = ""
         self.each_char do |ch|
@@ -207,7 +219,7 @@ class String
     end
 
 
-    def map!(&blk)
+    def map!(&blk) #DONE
         self.each_char.with_index do |char, i|
             self[i] = blk.call(char,i)
         end
@@ -294,7 +306,7 @@ end
 # p lucas_sequence(8)   # => [2, 1, 3, 4, 7, 11, 18, 29]
 
 
-#prime_factorization
+#prime_factorization  DONE
 
 def prime_factorization(num)
     (2...num).each do |factor|
