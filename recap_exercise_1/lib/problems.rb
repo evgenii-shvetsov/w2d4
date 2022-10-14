@@ -9,35 +9,17 @@
 require "byebug"
 
 def all_vowel_pairs(words)
-    pairs_arr= []
-    
-    (0..words.length).each do |i|
-        (i..words.length).each do |j|
-            pair = words[i].to_s + words[j]
-            if vowels_checker(pair)
-                pairs_arr << words[i] + " " + words[j]
-            end
+    pairs_arr = []
+    vowels = ["a", "e", "i", "o", "u"]
+    words.each_with_index do |word_1, idx1 |
+        words.each_with_index do |word_2, idx2|
+            # debugger
+            pair = word_1 + " " + word_2
+            pairs_arr << pair if idx2 > idx1 && vowels.all? { |vowel| pair.include?(vowel) } 
         end
     end
     pairs_arr
-
 end
-
-def vowels_checker(str)
-    vowels = "aeiou"
-    match = []
-
-    str.each_char do |char|
-        if vowels.include?(char) && !match.include?(char)
-            match << char
-        end
-    end
-
-    match.length == 5 ? true : false
-        
-end
-
-
 
 
 # Write a method, composite?, that takes in a number and returns a boolean indicating if the number
