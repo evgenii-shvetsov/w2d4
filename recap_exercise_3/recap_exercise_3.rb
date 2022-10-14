@@ -165,7 +165,7 @@ end
 # vowel_rotate('awesome')       # => "ewasemo"
 
 
-#PROC PROBLEMS
+#PROC PROBLEMS *DONE
 
 class String
 
@@ -194,25 +194,98 @@ end
 # p "HELLOworld".select { |ch| ch == ch.upcase }          # => "HELLO"
 # p "HELLOworld".select          # => ""
 
-# Examples
-word_1 = "Lovelace"
-word_1.map! do |ch| 
-    if ch == 'e'
-        '3'
-    elsif ch == 'a'
-        '4'
-    else
-        ch
-    end
-end
-p word_1        # => "Lov3l4c3"
+# # Examples
+# word_1 = "Lovelace"
+# word_1.map! do |ch| 
+#     if ch == 'e'
+#         '3'
+#     elsif ch == 'a'
+#         '4'
+#     else
+#         ch
+#     end
+# end
+# p word_1        # => "Lov3l4c3"
 
-word_2 = "Dijkstra"
-word_2.map! do |ch, i|
-    if i.even?
-        ch.upcase
+# word_2 = "Dijkstra"
+# word_2.map! do |ch, i|
+#     if i.even?
+#         ch.upcase
+#     else
+#         ch.downcase
+#     end
+# end
+# p word_2        # => "DiJkStRa"
+
+
+
+#RECURSION PROBLEMS
+
+#multiply # DONE
+
+def multiply(a,b)
+    return 0 if  b == 0
+    
+    if b < 0
+        -(a + multiply(a, (-b)-1))
     else
-        ch.downcase
+        a + multiply(a, b-1)
     end
 end
-p word_2        # => "DiJkStRa"
+
+# Examples
+# p multiply(3, 5)        # => 15
+# p multiply(5, 3)        # => 15
+# p multiply(2, 4)        # => 8
+# p multiply(0, 10)       # => 0
+# p multiply(-3, -6)      # => 18
+# p multiply(3, -6)       # => -18
+# # p multiply(-3, 6)       # => -18
+
+
+
+
+#lucas_sequence  DONE
+
+def lucas_sequence(num)
+    return [] if num == 0
+    return [2] if num == 1
+    return [2,1] if num == 2
+
+    luc_seq = lucas_sequence(num - 1)
+    next_ele = luc_seq[-2] + luc_seq[-1]
+    luc_seq << next_ele
+    luc_seq
+
+
+end
+
+# p lucas_sequence(0)   # => []
+# p lucas_sequence(1)   # => [2]    
+# p lucas_sequence(2)   # => [2, 1]
+# p lucas_sequence(3)   # => [2, 1, 3]
+# p lucas_sequence(6)   # => [2, 1, 3, 4, 7, 11]
+# p lucas_sequence(8)   # => [2, 1, 3, 4, 7, 11, 18, 29]
+
+
+#prime_factorization
+
+def prime_factorization(num)
+    (2...num).each do |factor|
+        if num % factor == 0
+            other_factor = num / factor
+            return [*prime_factorization(factor), *prime_factorization(other_factor)]
+        end
+    end   
+    [num]
+end
+
+
+# Examples
+p prime_factorization(12)     # => [2, 2, 3]
+p prime_factorization(24)     # => [2, 2, 2, 3]
+p prime_factorization(25)     # => [5, 5]
+p prime_factorization(60)     # => [2, 2, 3, 5]
+p prime_factorization(7)      # => [7]
+p prime_factorization(11)     # => [11]
+p prime_factorization(2017)   # => [2017]
