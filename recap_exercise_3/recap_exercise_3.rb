@@ -55,29 +55,47 @@ end
 
 #longest_streak   #NEED TO FINISH
 def longest_streak(str)
-    return str if str.length == 1
-   
-    hash = Hash.new(1)
-    
-    (0...str.length - 1).each do |i|
-        if str[i] == str[i+1]
-            hash[str[i]] += 1
+    current = ""
+    longest = ""
+
+    (0...str.length).each do |i|
+        if str[i] == str[i - 1] || i == 0
+            current += str[i]
+        else
+            current = str[i]
+        end
+
+        if current.length >= longest.length
+            longest = current
         end
     end
+    longest
 
-    long_streak = hash.sort_by {|k, v| v}
-    # long_streak
+          #Solution with hash, last example doesn't pass the test case
+
+    # return str if str.length == 1
+   
+    # hash = Hash.new(1)
     
-    if long_streak.kind_of?(Array)
-        long_streak[-1][0] * long_streak[-1][1]
-    # elsif
-    #     return str[str.length - 1]
-    end
+    # (0...str.length - 1).each do |i|
+    #     if str[i] == str[i+1]
+    #         hash[str[i]] += 1
+    #     end
+    # end
 
-    # return str.split("")[-1]
+    # long_streak = hash.sort_by {|k, v| v}
+    # # long_streak
+    
+    # if long_streak.kind_of?(Array)
+    #     long_streak[-1][0] * long_streak[-1][1]
+    # # elsif
+    # #     return str[str.length - 1]
+    # end
 
-    # hash
-    #iterate over hash and 
+    # # return str.split("")[-1]
+
+    # # hash
+    # #iterate over hash and 
     
 
 end
@@ -87,7 +105,7 @@ end
 # p longest_streak('accccbbb')    # => 'cccc'
 # p longest_streak('aaaxyyyyyzz') # => 'yyyyy
 # p longest_streak('aaabbb')      # => 'bbb'
-# # p longest_streak('abc')         # => 'c'
+# p longest_streak('abc')         # => 'c'
 
 
 
@@ -127,16 +145,24 @@ end
 
 #vigenere_cipher
 
-def vigenere_cipher
-
+def vigenere_cipher(str, shift)
+    alphabet = ("a".."z").to_a
+    new_str = ""
+    str.each_char do |char|
+        position = (alphabet.index(char) + shift[0]) % 26
+        new_str += alphabet[position]
+        shift.rotate!
+    end
+    new_str
 end
 
+
 # Examples
-# vigenere_cipher("toerrishuman", [1])        # => "upfssjtivnbo"
-# vigenere_cipher("toerrishuman", [1, 2])     # => "uqftsktjvobp"
-# vigenere_cipher("toerrishuman", [1, 2, 3])  # => "uqhstltjxncq"
-# vigenere_cipher("zebra", [3, 0])            # => "ceerd"
-# vigenere_cipher("yawn", [5, 1])             # => "dbbo"
+p vigenere_cipher("toerrishuman", [1])        # => "upfssjtivnbo"
+p vigenere_cipher("toerrishuman", [1, 2])     # => "uqftsktjvobp"
+p vigenere_cipher("toerrishuman", [1, 2, 3])  # => "uqhstltjxncq"
+p vigenere_cipher("zebra", [3, 0])            # => "ceerd"
+p vigenere_cipher("yawn", [5, 1])             # => "dbbo"
 
 
 
@@ -281,11 +307,11 @@ def prime_factorization(num)
 end
 
 
-# Examples
-p prime_factorization(12)     # => [2, 2, 3]
-p prime_factorization(24)     # => [2, 2, 2, 3]
-p prime_factorization(25)     # => [5, 5]
-p prime_factorization(60)     # => [2, 2, 3, 5]
-p prime_factorization(7)      # => [7]
-p prime_factorization(11)     # => [11]
-p prime_factorization(2017)   # => [2017]
+# # Examples
+# p prime_factorization(12)     # => [2, 2, 3]
+# p prime_factorization(24)     # => [2, 2, 2, 3]
+# p prime_factorization(25)     # => [5, 5]
+# p prime_factorization(60)     # => [2, 2, 3, 5]
+# p prime_factorization(7)      # => [7]
+# p prime_factorization(11)     # => [11]
+# p prime_factorization(2017)   # => [2017]
